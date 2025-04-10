@@ -1,5 +1,7 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/yaqUII6w)
 # Write a servlet to accept user credentials through an HTML form and display a personalized welcome message if the login is successful.
+
+```
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -83,6 +85,7 @@ public class EmployeeServlet extends HttpServlet {
         }
     }
 }
+```
 # Develop a JSP-based student portal. Include a form for entering attendance details and save them to the database using a servlet.
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -130,3 +133,40 @@ public class AttendanceServlet extends HttpServlet {
         }
     }
 }
+# Hard Level: Develop a JSP-based student portal. Include a form for entering attendance details and save them to the database using a servlet.
+```
+import java.io.*;
+import java.sql.*;
+import javax.servlet.*;
+import javax.servlet.annotation.*;
+import javax.servlet.http.*;
+
+@WebServlet("/AttendanceServlet")
+public class AttendanceServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        String name = request.getParameter("studentName");
+        String roll = request.getParameter("rollNumber");
+        String date = request.getParameter("date");
+        String status = request.getParameter("status");
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/studentDB", "root", "password");
+
+            PreparedStatement ps = con.prepareStatement("INSERT INTO attendance (student_name, roll_number, date, status) VALUES (?, ?, ?, ?)");
+            ps.setString(1, name);
+            ps.setString(2, roll);
+            ps.setString(3, date);
+            ps.setString(4, status);
+
+            int result = ps.executeUpdate();
+            out.println(result > 0 ? "<h3>Attendance saved!</h3>" : "<h3>Failed to save.</h3>");
+
+            con.close();
+        } catch (Exception e) {
+            out.println("Error: " + e.getMessage());
+        }
+    }
+}
+````
