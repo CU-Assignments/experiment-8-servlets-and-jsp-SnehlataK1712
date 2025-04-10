@@ -29,6 +29,7 @@ public class LoginServlet extends HttpServlet {
     }
 }
 # Create a servlet integrated with JDBC to display a list of employees from a database. Include a search form to fetch employee details by ID.
+`````
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -86,7 +87,9 @@ public class EmployeeServlet extends HttpServlet {
     }
 }
 ```
+
 # Develop a JSP-based student portal. Include a form for entering attendance details and save them to the database using a servlet.
+`````
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
